@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cinema events</title>
+</head>
+<body>
+    <a href="#" th:href="'/users'" th:text="'Users'"></a>
+    <a href="#" th:href="'/upload'" th:text="'Upload'"></a>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Base price</th>
+            <th>Rating</th>
+            <th>Dates</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="event : ${events}">
+            <td th:text="${event.id}"></td>
+            <td th:text="${event.name}"></td>
+            <td th:text="${event.basePrice}"></td>
+            <td th:text="${event.rating}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
