@@ -1,2 +1,11 @@
-Error
-<!-- render error message -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Error</title>
+</head>
+<body>
+    <a href="#" th:href="'/'" th:text="'Main page'"/>
+    <div th:text="${error}"></div>
+</body>
+</html>

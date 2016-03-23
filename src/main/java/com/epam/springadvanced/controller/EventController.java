@@ -22,7 +22,7 @@ public class EventController {
     private EventService eventService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAll() {
+    public ModelAndView getEventsPage() {
         Collection<Event> events = eventService.getAll();
         ModelAndView modelAndView = new ModelAndView("events");
         modelAndView.addObject("events", events);

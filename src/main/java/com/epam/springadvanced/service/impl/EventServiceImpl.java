@@ -1,20 +1,19 @@
 package com.epam.springadvanced.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.epam.springadvanced.entity.Auditorium;
 import com.epam.springadvanced.entity.Event;
 import com.epam.springadvanced.repository.EventRepository;
 import com.epam.springadvanced.service.EventService;
 import com.epam.springadvanced.service.Rating;
 import com.epam.springadvanced.service.exception.AuditoriumAlreadyAssignedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService {

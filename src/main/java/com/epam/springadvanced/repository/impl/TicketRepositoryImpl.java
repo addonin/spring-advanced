@@ -1,10 +1,6 @@
 package com.epam.springadvanced.repository.impl;
 
-import com.epam.springadvanced.entity.Auditorium;
-import com.epam.springadvanced.entity.Event;
-import com.epam.springadvanced.entity.Seat;
-import com.epam.springadvanced.entity.Ticket;
-import com.epam.springadvanced.entity.User;
+import com.epam.springadvanced.entity.*;
 import com.epam.springadvanced.repository.AuditoriumRepository;
 import com.epam.springadvanced.repository.EventRepository;
 import com.epam.springadvanced.repository.TicketRepository;

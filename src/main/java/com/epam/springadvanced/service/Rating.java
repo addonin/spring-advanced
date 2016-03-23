@@ -1,6 +1,10 @@
 package com.epam.springadvanced.service;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape=JsonFormat.Shape.OBJECT)
 public enum Rating {
+
     HIGH(0), MID(1), LOW(2);
 
     private int value;

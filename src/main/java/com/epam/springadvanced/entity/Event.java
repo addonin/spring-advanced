@@ -1,8 +1,8 @@
 package com.epam.springadvanced.entity;
 
-import java.time.LocalDateTime;
-
 import com.epam.springadvanced.service.Rating;
+
+import java.time.LocalDateTime;
 
 public class Event {
     private Long id;

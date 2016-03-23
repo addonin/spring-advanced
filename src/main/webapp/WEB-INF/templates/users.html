@@ -1,2 +1,34 @@
-Users
-<!-- render new user form and search form -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cinema users</title>
+</head>
+<body>
+
+    <a href="#" th:href="'/events'" th:text="'Events'"/>
+    <a href="#" th:href="'/uploads'" th:text="'Uploads'"/>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Birthday</th>
+            <th>Tickets</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.birthday}"></td>
+            <!--<td><a href="#" th:href="@{/tickets(userid=${user.id})}" th:text="'Booked tickets'"/></td>-->
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
