@@ -3,7 +3,6 @@ package com.epam.springadvanced.controller;
 import com.epam.springadvanced.entity.Event;
 import com.epam.springadvanced.entity.User;
 import com.epam.springadvanced.service.EventService;
-import com.epam.springadvanced.service.Rating;
 import com.epam.springadvanced.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -55,9 +52,7 @@ public class UploadController {
     @RequestMapping(value = "/events", method = RequestMethod.POST)
     public String uploadEventsFileAndShowEventsPage(@RequestParam("events") MultipartFile multipartFile, ModelMap model)
             throws IOException {
-        //TODO: fix problem with enum deserialization
-        //List<Event> events = Arrays.asList(objectMapper.readValue(multipartFile.getBytes(), Event[].class));
-        List<Event> events = Collections.singletonList(new Event("event_name", LocalDateTime.now(), 10.99F, Rating.HIGH));
+        List<Event> events = Arrays.asList(objectMapper.readValue(multipartFile.getBytes(), Event[].class));
         events.stream().forEach(event -> {
             eventService.create(event.getName(), event.getDateTime(), event.getTicketPrice(), event.getRating());
         });

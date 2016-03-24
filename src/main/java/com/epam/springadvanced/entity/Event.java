@@ -27,6 +27,9 @@ public class Event {
         this.rating = rating;
     }
 
+    public Event() {
+    }
+
     public Long getId() {
         return id;
     }
