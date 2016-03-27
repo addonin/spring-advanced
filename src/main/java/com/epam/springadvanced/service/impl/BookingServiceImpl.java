@@ -1,6 +1,7 @@
 package com.epam.springadvanced.service.impl;
 
-import com.epam.springadvanced.entity.*;
+import com.epam.springadvanced.domain.entity.*;
+import com.epam.springadvanced.domain.enums.Rating;
 import com.epam.springadvanced.repository.AuditoriumRepository;
 import com.epam.springadvanced.repository.TicketRepository;
 import com.epam.springadvanced.service.*;
@@ -20,18 +21,24 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
-    private static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
     private static final int VIP_PRICE_COEF = 2;
     private static final float HIGH_EVENT_PRICE_COEF = 1.2f;
+
+    private static final Logger log = LoggerFactory.getLogger(BookingService.class);
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private EventService eventService;
+
     @Autowired
     private TicketRepository ticketRepository;
+
     @Autowired
     private DiscountService discountService;
+
     @Autowired
     private AuditoriumRepository auditoriumRepository;
 
@@ -58,7 +65,6 @@ public class BookingServiceImpl implements BookingService {
             float discount = discountService.getDiscount(user, event, dateTime);
             price = price - (100 * discount);
         }
-
         return price;
     }
 
@@ -78,7 +84,7 @@ public class BookingServiceImpl implements BookingService {
         //false if ticket already booked for specified event and seat
         boolean notBooked = ticketRepository.getBookedTickets().stream()
                 .noneMatch(t -> t.getEvent().getName().equals(ticket.getEvent().getName()) &&
-                                t.getSeat().getNumber() == ticket.getSeat().getNumber()
+                        t.getSeat().getNumber() == ticket.getSeat().getNumber()
                 );
         if (notBooked) {
             ticketRepository.saveBookedTicket(user, ticket);

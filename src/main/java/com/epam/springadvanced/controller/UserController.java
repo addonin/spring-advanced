@@ -1,6 +1,6 @@
 package com.epam.springadvanced.controller;
 
-import com.epam.springadvanced.entity.Ticket;
+import com.epam.springadvanced.domain.entity.Ticket;
 import com.epam.springadvanced.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +44,5 @@ public class UserController {
         return "rpt_tickets";*/
         return null;
     }
-
 
 }

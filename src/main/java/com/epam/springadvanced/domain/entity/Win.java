@@ -1,8 +1,9 @@
-package com.epam.springadvanced.entity;
+package com.epam.springadvanced.domain.entity;
 
 import java.util.Date;
 
 public class Win {
+
     private Long id;
     private User user;
     private Date date;

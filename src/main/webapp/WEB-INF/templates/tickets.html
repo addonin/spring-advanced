@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title th:text="${event.name}"></title>
+    <title th:text="${event.name} - free tickets"></title>
 </head>
 <body>
 
@@ -27,7 +27,7 @@
         <td th:text="${event.ticketPrice}"></td>
         <td th:text="${event.rating}"></td>
         <td th:text="${event.dateTime}"></td>
-        <td><a href="#" th:href="@{/events/tickets(eventId=${event.id})}" th:text="'Show tickets'"/></td>
+        <td><a href="#" th:href="@{/events/tickets(eventId=${event.id})}" th:text="'Show tickets'"></a></td>
     </tr>
     </tbody>
 </table>

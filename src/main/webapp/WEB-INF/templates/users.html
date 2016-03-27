@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Cinema users</title>
+    <title>Cinema clients</title>
 </head>
 <body>
 
     <a href="#" th:href="'/logout'" th:text="'Logout'"></a><br/>
-    <a href="#" th:href="'/events'" th:text="'Events'"/>
-    <a href="#" th:href="'/uploads'" th:text="'Uploads'"/>
+    <a href="#" th:href="'/events'" th:text="'Events'"></a>
+    <a href="#" th:href="'/uploads'" th:text="'Uploads'"></a>
 
     <table>
         <thead>
@@ -26,7 +26,7 @@
             <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.birthday}"></td>
-            <td><a href="#" th:href="@{/users/tickets(userId=${user.id})}" th:text="'PDF'"/></td>
+            <td><a href="#" th:href="@{/users/tickets(userId=${user.id})}" th:text="'PDF'"></a></td>
         </tr>
         </tbody>
     </table>

@@ -1,7 +1,7 @@
 package com.epam.springadvanced.service.impl;
 
-import com.epam.springadvanced.entity.Ticket;
-import com.epam.springadvanced.entity.User;
+import com.epam.springadvanced.domain.entity.Ticket;
+import com.epam.springadvanced.domain.entity.User;
 import com.epam.springadvanced.repository.TicketRepository;
 import com.epam.springadvanced.repository.UserRepository;
 import com.epam.springadvanced.service.UserService;
@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TicketRepository ticketRepository;
+
     @Autowired
     private UserRepository userRepository;
 

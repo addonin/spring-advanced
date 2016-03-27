@@ -1,4 +1,4 @@
-package com.epam.springadvanced.entity;
+package com.epam.springadvanced.domain.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +8,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.rangeClosed;
 
 public class Auditorium {
+
     private int id;
     private String name;
     private int numberOfSeats;
@@ -58,4 +59,5 @@ public class Auditorium {
     public void setSeats(Collection<Seat> seats) {
         this.seats = seats;
     }
+
 }

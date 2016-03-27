@@ -1,17 +1,9 @@
 package com.epam.springadvanced;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.epam.springadvanced.domain.entity.Auditorium;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.epam.springadvanced.entity.Auditorium;
-
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
 
 @Configuration
 public class AuditoriumConfiguration {

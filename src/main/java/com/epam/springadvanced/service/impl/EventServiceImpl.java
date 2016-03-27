@@ -1,10 +1,10 @@
 package com.epam.springadvanced.service.impl;
 
-import com.epam.springadvanced.entity.Auditorium;
-import com.epam.springadvanced.entity.Event;
+import com.epam.springadvanced.domain.entity.Auditorium;
+import com.epam.springadvanced.domain.entity.Event;
 import com.epam.springadvanced.repository.EventRepository;
 import com.epam.springadvanced.service.EventService;
-import com.epam.springadvanced.service.Rating;
+import com.epam.springadvanced.domain.enums.Rating;
 import com.epam.springadvanced.service.exception.AuditoriumAlreadyAssignedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

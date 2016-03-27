@@ -23,9 +23,4 @@ public class IndexController {
         return "403";
     }
 
-    /*@RequestMapping("/logout")
-    public String logout() {
-        return "index";
-    }*/
-
 }

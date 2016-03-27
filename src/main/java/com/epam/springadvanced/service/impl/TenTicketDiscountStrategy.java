@@ -1,15 +1,14 @@
 package com.epam.springadvanced.service.impl;
 
-import java.util.Optional;
-
+import com.epam.springadvanced.domain.entity.User;
+import com.epam.springadvanced.repository.TicketRepository;
+import com.epam.springadvanced.service.DiscountStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.epam.springadvanced.entity.User;
-import com.epam.springadvanced.repository.TicketRepository;
-import com.epam.springadvanced.service.DiscountStrategy;
+import java.util.Optional;
 
 @Component
 public class TenTicketDiscountStrategy implements DiscountStrategy {
@@ -37,7 +36,6 @@ public class TenTicketDiscountStrategy implements DiscountStrategy {
         if (discount[0] == DISCOUNT) {
             log.info("User " + user.getName() + " purchased tenth ticket!");
         }
-
         return discount[0];
     }
 }

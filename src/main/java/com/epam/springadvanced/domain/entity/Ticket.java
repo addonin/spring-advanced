@@ -1,10 +1,14 @@
-package com.epam.springadvanced.entity;
+package com.epam.springadvanced.domain.entity;
+
+import com.epam.springadvanced.domain.enums.TicketState;
 
 public class Ticket {
+
     private Long id;
     private float price;
     private Seat seat;
     private Event event;
+    private TicketState state;
 
     public Long getId() {
         return id;
@@ -37,4 +41,13 @@ public class Ticket {
     public void setEvent(Event event) {
         this.event = event;
     }
+
+    public TicketState getState() {
+        return state;
+    }
+
+    public void setState(TicketState state) {
+        this.state = state;
+    }
+
 }

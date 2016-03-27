@@ -1,10 +1,10 @@
 package com.epam.springadvanced.repository.impl;
 
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.epam.springadvanced.domain.entity.Event;
+import com.epam.springadvanced.domain.enums.Rating;
+import com.epam.springadvanced.repository.AuditoriumRepository;
+import com.epam.springadvanced.repository.EventRepository;
+import com.epam.springadvanced.utils.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,11 +12,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.epam.springadvanced.entity.Event;
-import com.epam.springadvanced.repository.AuditoriumRepository;
-import com.epam.springadvanced.repository.EventRepository;
-import com.epam.springadvanced.service.Rating;
-import com.epam.springadvanced.utils.Convert;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.util.Optional.ofNullable;
 
@@ -34,6 +33,7 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     @Autowired
     private AuditoriumRepository auditoriumRepository;
 
@@ -126,4 +126,5 @@ public class EventRepositoryImpl implements EventRepository {
             return event;
         };
     }
+
 }

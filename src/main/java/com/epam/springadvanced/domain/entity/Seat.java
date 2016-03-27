@@ -1,6 +1,7 @@
-package com.epam.springadvanced.entity;
+package com.epam.springadvanced.domain.entity;
 
 public class Seat {
+
     private int number;
     private boolean vip;
 

@@ -1,9 +1,10 @@
 package com.epam.springadvanced.service.exception;
 
-import com.epam.springadvanced.entity.Auditorium;
-import com.epam.springadvanced.entity.Event;
+import com.epam.springadvanced.domain.entity.Auditorium;
+import com.epam.springadvanced.domain.entity.Event;
 
 public class AuditoriumAlreadyAssignedException extends Exception {
+
     private String message;
 
     public AuditoriumAlreadyAssignedException(Event event, Auditorium auditorium) {
@@ -16,4 +17,5 @@ public class AuditoriumAlreadyAssignedException extends Exception {
     public String getMessage() {
         return message;
     }
+
 }

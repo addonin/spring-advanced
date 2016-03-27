@@ -29,9 +29,9 @@
             <td th:text="${event.rating}"></td>
             <td th:text="${event.dateTime}"></td>
             <td>
-                <a href="#" th:href="@{/events/tickets(eventId=${event.id})}" th:text="'Show tickets'"/>
+                <a href="#" th:href="@{/events/free-tickets(eventId=${event.id})}" th:text="'Free tickets'"></a>
                 <div sec:authorize="hasRole('ROLE_BOOKING_MANAGER')">
-                    <a href="#" th:href="@{/events/new-event}" th:text="'Create event'"/>
+                    <a href="#" th:href="@{/events/booked-tickets(eventId=${event.id})}" th:text="'Booked tickets'"></a>
                 </div>
             </td>
         </tr>

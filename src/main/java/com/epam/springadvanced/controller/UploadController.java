@@ -1,7 +1,7 @@
 package com.epam.springadvanced.controller;
 
-import com.epam.springadvanced.entity.Event;
-import com.epam.springadvanced.entity.User;
+import com.epam.springadvanced.domain.entity.Event;
+import com.epam.springadvanced.domain.entity.User;
 import com.epam.springadvanced.service.EventService;
 import com.epam.springadvanced.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;

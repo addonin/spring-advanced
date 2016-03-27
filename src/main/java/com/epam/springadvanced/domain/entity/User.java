@@ -1,4 +1,6 @@
-package com.epam.springadvanced.entity;
+package com.epam.springadvanced.domain.entity;
+
+import com.epam.springadvanced.domain.enums.Role;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,6 +29,11 @@ public class User {
     public User(String name, String email, LocalDate birthday) {
         this(name, email);
         this.birthday = birthday;
+    }
+
+    public User(String name, String email, LocalDate birthday, List<Role> roles) {
+        this(name, email, birthday);
+        this.roles = roles;
     }
 
     public User(long id, String name, String email, LocalDate birthday) {

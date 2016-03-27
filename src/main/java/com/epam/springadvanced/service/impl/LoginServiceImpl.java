@@ -1,7 +1,7 @@
 package com.epam.springadvanced.service.impl;
 
-import com.epam.springadvanced.entity.Role;
-import com.epam.springadvanced.entity.User;
+import com.epam.springadvanced.domain.entity.User;
+import com.epam.springadvanced.domain.enums.Role;
 import com.epam.springadvanced.service.UserService;
 import com.epam.springadvanced.service.exception.UserNotRegisteredException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class LoginServiceImpl implements UserDetailsService {
     private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
         }
         return authorities;
     }

@@ -41,19 +41,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .formLogin()
-                .and()
-                .authorizeRequests()
+            .formLogin()
+            .and()
+            .authorizeRequests()
                 .antMatchers("/").hasAnyRole("REGISTERED_USER", "BOOKING_MANAGER")
                 .antMatchers("/booking/tickets").hasRole("BOOKING_MANAGER")
-                .and()
-                .exceptionHandling().accessDeniedPage("/403")
-                .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and()
-                .csrf()
-                .and()
-                .rememberMe().rememberMeServices(rememberMeServices());
+            .and()
+            .exceptionHandling().accessDeniedPage("/403")
+            .and()
+            .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .and()
+            .csrf()
+            .and()
+            .rememberMe().rememberMeServices(rememberMeServices());
     }
 
     @Bean

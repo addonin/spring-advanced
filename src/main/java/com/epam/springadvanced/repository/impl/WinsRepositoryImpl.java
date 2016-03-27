@@ -1,19 +1,18 @@
 package com.epam.springadvanced.repository.impl;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.epam.springadvanced.domain.entity.User;
+import com.epam.springadvanced.domain.entity.Win;
+import com.epam.springadvanced.repository.WinsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.epam.springadvanced.entity.User;
-import com.epam.springadvanced.entity.Win;
-import com.epam.springadvanced.repository.WinsRepository;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.util.Optional.ofNullable;
 

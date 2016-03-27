@@ -1,13 +1,12 @@
 package com.epam.springadvanced.service.impl;
 
-import java.time.LocalDate;
-
+import com.epam.springadvanced.domain.entity.User;
+import com.epam.springadvanced.service.DiscountStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.epam.springadvanced.entity.User;
-import com.epam.springadvanced.service.DiscountStrategy;
+import java.time.LocalDate;
 
 @Component
 public class BirthDayDiscountStrategy implements DiscountStrategy {
@@ -28,4 +27,5 @@ public class BirthDayDiscountStrategy implements DiscountStrategy {
         }
         return discount;
     }
+
 }

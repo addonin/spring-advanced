@@ -1,11 +1,11 @@
 package com.epam.springadvanced.repository.impl;
 
-import com.epam.springadvanced.entity.*;
+import com.epam.springadvanced.domain.entity.*;
 import com.epam.springadvanced.repository.AuditoriumRepository;
 import com.epam.springadvanced.repository.EventRepository;
 import com.epam.springadvanced.repository.TicketRepository;
 import com.epam.springadvanced.repository.UserRepository;
-import com.epam.springadvanced.service.Rating;
+import com.epam.springadvanced.domain.enums.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -41,8 +41,10 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Autowired
     private AuditoriumRepository auditoriumRepository;
+
     @Autowired
     private EventRepository eventRepository;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -157,5 +159,7 @@ public class TicketRepositoryImpl implements TicketRepository {
 
             return t;
         }
+
     }
+
 }

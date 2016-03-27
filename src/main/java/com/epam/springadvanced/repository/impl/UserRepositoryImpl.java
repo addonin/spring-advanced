@@ -1,9 +1,9 @@
 package com.epam.springadvanced.repository.impl;
 
-import com.epam.springadvanced.entity.Role;
-import com.epam.springadvanced.entity.User;
+import com.epam.springadvanced.domain.entity.User;
 import com.epam.springadvanced.repository.UserRepository;
 import com.epam.springadvanced.repository.WinsRepository;
+import com.epam.springadvanced.domain.enums.Role;
 import com.epam.springadvanced.utils.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -22,23 +22,22 @@ import static java.util.Optional.ofNullable;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
     private static final String UPDATE_USER_BY_ID = "UPDATE user SET name=?, email=?, birthDay=?, password=? WHERE id=?";
     private static final String UPDATE_USER_BY_NAME = "UPDATE user SET name=?, email=?, birthDay=?, password=? WHERE name=?";
     private static final String SELECT_BY_USER_ID = "SELECT * FROM user WHERE id=?";
     private static final String SELECT_BY_USER_EMAIL = "SELECT * FROM user WHERE email=?";
-    private static final String SELECT_BY_USER_NAME = "SELECT * FROM user WHERE username=?";
+    private static final String SELECT_BY_USER_NAME = "SELECT * FROM user WHERE name=?";
     private static final String DELETE_TICKETS = "DELETE FROM tickets WHERE user_id = ?";
     private static final String DELETE_USER = "DELETE FROM user WHERE id=?";
     private static final String DELETE_USER_ROLE = "DELETE FROM roles WHERE user_id=?";
     private static final String SELECT_ALL = "SELECT * FROM user";
-    private static final String SELECT_USER_ROLES =
-            "select * from role r\n" +
-                    "join roles rs on rs.role_id = r.id\n" +
-                    "where user_id=?";
-    private static final String SELECT_ROLE_BY_NAME = "select * from role where name = ?";
+    private static final String SELECT_USER_ROLES = "select name from role r join roles rs on rs.role_id = r.id here user_id=?";
+    private static final String SELECT_ROLE_ID_BY_NAME = "select id from role where name = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     @Autowired
     private WinsRepository winsRepository;
 
@@ -65,7 +64,6 @@ public class UserRepositoryImpl implements UserRepository {
                         user.getName());
                 updatedUser = findByName(user.getName());
             }
-
             if (updatedUser == null) {
                 // insert if users not saved yet
                 SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate).withTableName("user");
@@ -81,7 +79,6 @@ public class UserRepositoryImpl implements UserRepository {
             }
             updateRoles(user.getId(), user.getRoles());
         }
-
         return user;
     }
 
@@ -91,14 +88,14 @@ public class UserRepositoryImpl implements UserRepository {
             SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate).withTableName("roles");
             Map<String, Object> args = new HashMap<>();
             args.put("user_id", userId);
-            args.put("role_id", getRoleByName(role.getName()).getId());
+            args.put("role_id", getRoleId(role));
             insert.execute(args);
         }
     }
 
-    private Role getRoleByName(String name) {
+    private Integer getRoleId(Role role) {
         try {
-            return jdbcTemplate.queryForObject(SELECT_ROLE_BY_NAME, roleMapper(), name);
+            return jdbcTemplate.queryForObject(SELECT_ROLE_ID_BY_NAME, Integer.class, role.name());
         } catch (EmptyResultDataAccessException ignored) {}
         return null;
     }
@@ -143,18 +140,12 @@ public class UserRepositoryImpl implements UserRepository {
         return jdbcTemplate.query(SELECT_ALL, userMapper());
     }
 
-
     private List<Role> getRoles(long userId) {
         return jdbcTemplate.query(SELECT_USER_ROLES, roleMapper(), userId);
     }
 
     private RowMapper<Role> roleMapper() {
-        return (rs, rowNum) -> {
-            Role role = new Role();
-            role.setId(rs.getInt(1));
-            role.setName(rs.getString(2));
-            return role;
-        };
+        return (rs, rowNum) -> Role.valueOf(rs.getString(1));
     }
 
     private RowMapper<User> userMapper() {
@@ -170,4 +161,5 @@ public class UserRepositoryImpl implements UserRepository {
             return user;
         };
     }
+
 }

@@ -1,6 +1,7 @@
 package com.epam.springadvanced.service.exception;
 
 public class TicketAlreadyBookedException extends Exception {
+
     private String message;
 
     public TicketAlreadyBookedException(int seatNumber) {
@@ -11,4 +12,5 @@ public class TicketAlreadyBookedException extends Exception {
     public String getMessage() {
         return message;
     }
+
 }

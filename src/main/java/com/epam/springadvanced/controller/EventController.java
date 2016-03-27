@@ -1,6 +1,6 @@
 package com.epam.springadvanced.controller;
 
-import com.epam.springadvanced.entity.Event;
+import com.epam.springadvanced.domain.entity.Event;
 import com.epam.springadvanced.service.BookingService;
 import com.epam.springadvanced.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;

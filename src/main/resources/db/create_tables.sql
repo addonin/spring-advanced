@@ -25,7 +25,7 @@ CREATE TABLE PUBLIC.ticket (
 
 CREATE TABLE PUBLIC.user (
   id       INT PRIMARY KEY NOT NULL IDENTITY,
-  username     VARCHAR(256) NOT NULL,
+  name     VARCHAR(256) NOT NULL,
   email    VARCHAR(256) DEFAULT NULL,
   birthday DATE         DEFAULT NULL,
   password VARCHAR(64),
@@ -48,11 +48,12 @@ CREATE TABLE PUBLIC.roles(
 
 CREATE TABLE PUBLIC.tickets (
   id        INT PRIMARY KEY NOT NULL IDENTITY,
-  user_id   INT NOT NULL,
-  ticket_id INT NOT NULL,
+  user_id   INT             NOT NULL,
+  ticket_id INT             NOT NULL,
   CONSTRAINT FK_TICKET_ID FOREIGN KEY (ticket_id) REFERENCES ticket (id),
   CONSTRAINT FK_USER_ID FOREIGN KEY (user_id) REFERENCES user (id)
 );
+
 
 CREATE TABLE PUBLIC.counters (
   id    INT PRIMARY KEY NOT NULL IDENTITY,
@@ -78,14 +79,14 @@ CREATE TABLE PUBLIC.persistent_logins (
 INSERT INTO role(id,name) VALUES (0,'REGISTERED_USER');
 INSERT INTO role(id,name) VALUES (1,'BOOKING_MANAGER');
 
-INSERT INTO user(id,username, email, birthday, password, enabled) VALUES (0,'admin','oleg.motorin@gmail.com',date'1978-12-08','$2a$10$mPHOZ5TpfU6IqUxzCGjAgOrSAvxPbUh/YijTONsydZFhyq0bIVIEC', 1); -- pass:admin
-INSERT INTO user(id,username, email, birthday, password, enabled) VALUES (1,'oleg','oleg.motorin@gmail.com',date'1978-12-08','$2a$08$l65pz/4gXDQAxgXuVCC.rOzv0MMzlk2JNGFxDwGV2zMsHuAry2Qki', 1);
-INSERT INTO user(id,username, email, birthday, password, enabled) VALUES (2,'test','test@test',date'1978-12-08','$2a$10$CZy6BYAJheaoperiSQrqleMQeBJo4RC8yIoldAPujlevDKTRZqhzy', 1); -- pass:test
+INSERT INTO user(id, name, email, birthday, password, enabled) VALUES (100,'admin','oleg.motorin@gmail.com',date'1978-12-08','$2a$10$mPHOZ5TpfU6IqUxzCGjAgOrSAvxPbUh/YijTONsydZFhyq0bIVIEC', 1); -- pass:admin
+INSERT INTO user(id, name, email, birthday, password, enabled) VALUES (101,'oleg','oleg.motorin@gmail.com',date'1978-12-08','$2a$08$l65pz/4gXDQAxgXuVCC.rOzv0MMzlk2JNGFxDwGV2zMsHuAry2Qki', 1);
+INSERT INTO user(id, name, email, birthday, password, enabled) VALUES (102,'test','test@test',date'1978-12-08','$2a$10$CZy6BYAJheaoperiSQrqleMQeBJo4RC8yIoldAPujlevDKTRZqhzy', 1); -- pass:test
 
-INSERT INTO roles(user_id, role_id) VALUES (0,0);
-INSERT INTO roles(user_id, role_id) VALUES (0,1);
-INSERT INTO roles(user_id, role_id) VALUES (1,0);
-INSERT INTO roles(user_id, role_id) VALUES (2,0);
+INSERT INTO roles(user_id, role_id) VALUES (100,0);
+INSERT INTO roles(user_id, role_id) VALUES (100,1);
+INSERT INTO roles(user_id, role_id) VALUES (101,0);
+INSERT INTO roles(user_id, role_id) VALUES (102,0);
 
 INSERT INTO event (id, name, date, ticketPrice, rating, auditorium_id) VALUES (0, 'event0', DATE '2016-01-01', 10.99, 1, 1);
 

@@ -1,28 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>Upload user or event</title>
+    <title>Upload users or events</title>
 </head>
 <body>
 
     <a href="#" th:href="'/logout'" th:text="'Logout'"></a><br/>
-    <a href="#" th:href="'/events'" th:text="'Events'"/>
-    <a href="#" th:href="'/users'" th:text="'Users'"/>
+    <a href="#" th:href="'/events'" th:text="'Events'"></a>
+    <a href="#" th:href="'/users'" th:text="'Users'"></a>
+
+    <div sec:authorize="hasRole('ROLE_REGISTERED_USER')">
+        RESTRICTED AREA (for managers only)
+    </div>
 
     <h3>Users upload</h3>
 
-    <form action="#" th:action="@{/uploads/users}" method="post" enctype="multipart/form-data">
-        <input type="file" name="users" />
-        <input type="submit" />
-    </form>
+    <div sec:authorize="hasRole('ROLE_BOOKING_MANAGER')">
 
-    <h3>Events upload</h3>
+        <form action="#" th:action="@{/uploads/users}" method="post" enctype="multipart/form-data">
+            <input type="file" name="users"/>
+            <input type="submit"/>
+        </form>
 
-    <form action="#" th:action="@{/uploads/events}" method="post" enctype="multipart/form-data">
-        <input type="file" name="events" />
-        <input type="submit" />
-    </form>
+        <h3>Events upload</h3>
+
+        <form action="#" th:action="@{/uploads/events}" method="post" enctype="multipart/form-data">
+            <input type="file" name="events"/>
+            <input type="submit"/>
+        </form>
+
+    </div>
 
 </body>
 </html>

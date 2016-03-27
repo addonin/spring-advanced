@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.epam.springadvanced.entity.Ticket;
-import com.epam.springadvanced.entity.User;
-import com.epam.springadvanced.entity.Win;
+import com.epam.springadvanced.domain.entity.Ticket;
+import com.epam.springadvanced.domain.entity.User;
+import com.epam.springadvanced.domain.entity.Win;
 import com.epam.springadvanced.repository.WinsRepository;
 
 @Aspect

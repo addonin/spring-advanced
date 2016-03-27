@@ -1,4 +1,4 @@
-package com.epam.springadvanced.service;
+package com.epam.springadvanced.domain.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

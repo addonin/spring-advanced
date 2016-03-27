@@ -1,10 +1,11 @@
-package com.epam.springadvanced.entity;
+package com.epam.springadvanced.domain.entity;
 
-import com.epam.springadvanced.service.Rating;
+import com.epam.springadvanced.domain.enums.Rating;
 
 import java.time.LocalDateTime;
 
 public class Event {
+
     private Long id;
     private String name;
     private LocalDateTime dateTime;

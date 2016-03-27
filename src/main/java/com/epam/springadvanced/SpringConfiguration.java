@@ -8,14 +8,19 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@Import({AspectConfiguration.class, DataConfiguration.class, AuditoriumConfiguration.class, SecurityConfiguration.class})
-@PropertySource("classpath:auditorium1.properties")
-@PropertySource("classpath:auditorium2.properties")
-@PropertySource("classpath:auditorium3.properties")
+@Import({AspectConfiguration.class,
+        DataConfiguration.class,
+        AuditoriumConfiguration.class,
+        SecurityConfiguration.class})
+@PropertySource("classpath:data/auditorium1.properties")
+@PropertySource("classpath:data/auditorium2.properties")
+@PropertySource("classpath:data/auditorium3.properties")
 @ComponentScan("com.epam.springadvanced.service")
 public class SpringConfiguration {
+
     @Bean
-    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer(){
+    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
+
 }
