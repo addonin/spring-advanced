@@ -1,31 +1,22 @@
 package com.epam.springadvanced.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import com.epam.springadvanced.entity.*;
+import com.epam.springadvanced.repository.AuditoriumRepository;
+import com.epam.springadvanced.repository.TicketRepository;
+import com.epam.springadvanced.service.*;
+import com.epam.springadvanced.service.exception.EventNotAssignedException;
+import com.epam.springadvanced.service.exception.TicketAlreadyBookedException;
+import com.epam.springadvanced.service.exception.TicketWithoutEventException;
+import com.epam.springadvanced.service.exception.UserNotRegisteredException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.epam.springadvanced.entity.Auditorium;
-import com.epam.springadvanced.entity.Event;
-import com.epam.springadvanced.entity.Seat;
-import com.epam.springadvanced.entity.Ticket;
-import com.epam.springadvanced.entity.User;
-import com.epam.springadvanced.repository.AuditoriumRepository;
-import com.epam.springadvanced.repository.TicketRepository;
-import com.epam.springadvanced.service.BookingService;
-import com.epam.springadvanced.service.DiscountService;
-import com.epam.springadvanced.service.EventService;
-import com.epam.springadvanced.service.Rating;
-import com.epam.springadvanced.service.UserService;
-import com.epam.springadvanced.service.exception.EventNotAssignedException;
-import com.epam.springadvanced.service.exception.TicketAlreadyBookedException;
-import com.epam.springadvanced.service.exception.TicketWithoutEventException;
-import com.epam.springadvanced.service.exception.UserNotRegisteredException;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -101,9 +92,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Collection<Ticket> getTicketsForEvent(Event event, LocalDateTime dateTime) {
-        return ticketRepository.getByEventName(event.getName()).stream()
-                .filter(t -> t.getEvent().getDateTime().isEqual(dateTime))
-                .collect(Collectors.toList());
+    public Collection<Ticket> getTicketsForEvent(int eventId) {
+        return ticketRepository.getByEventId(eventId).stream().collect(Collectors.toList());
     }
 }

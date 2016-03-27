@@ -18,4 +18,14 @@ public class IndexController {
         return new ModelAndView("index", model);
     }
 
+    @RequestMapping("/403")
+    public String accessDenied() {
+        return "403";
+    }
+
+    /*@RequestMapping("/logout")
+    public String logout() {
+        return "index";
+    }*/
+
 }

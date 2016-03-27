@@ -16,5 +16,5 @@ public interface BookingService {
 
     void bookTicket(User user, Ticket ticket) throws UserNotRegisteredException, TicketAlreadyBookedException, TicketWithoutEventException;
 
-    Collection<Ticket> getTicketsForEvent(Event event, LocalDateTime dateTime);
+    Collection<Ticket> getTicketsForEvent(int eventId);
 }

@@ -23,9 +23,9 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     private static final String SELECT_ALL = "SELECT t.*, e.* FROM ticket t\n" +
             "LEFT JOIN event e ON t.event_id = e.id";
-    private static final String SELECT_BY_EVENT_NAME = "SELECT t.*, e.* FROM ticket t\n" +
+    private static final String SELECT_BY_EVENT_ID = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN event e ON t.event_id = e.id\n" +
-            "WHERE e.name = ?";
+            "WHERE e.event_id = ?";
     private static final String UPDATE_TICKET = "UPDATE ticket SET price = ?, seat = ?, event_id = ?";
     private static final String SELECT_BOOKED_TICKETS = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN tickets ts ON ts.ticket_id = t.id\n" +
@@ -85,8 +85,8 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
 
     @Override
-    public Collection<Ticket> getByEventName(String eventName) {
-        Collection<Ticket> tickets = jdbcTemplate.query(SELECT_BY_EVENT_NAME, new TicketMapper(), eventName);
+    public Collection<Ticket> getByEventId(int eventId) {
+        Collection<Ticket> tickets = jdbcTemplate.query(SELECT_BY_EVENT_ID, new TicketMapper(), eventId);
         tickets = setAuditorium(tickets);
         tickets.forEach(ticket -> ticket.setSeat(updateSeat(ticket)));
         return tickets;

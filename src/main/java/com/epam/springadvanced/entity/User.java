@@ -11,6 +11,7 @@ public class User {
     private LocalDate birthday;
     private String password;
     private List<Role> roles;
+    private int enabled;
 
     public User(String name, String email) {
         this.name = name;
@@ -83,5 +84,13 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
     }
 }

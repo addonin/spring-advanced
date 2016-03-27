@@ -6,6 +6,7 @@
 </head>
 <body>
 
+    <a href="#" th:href="'/logout'" th:text="'Logout'"></a><br/>
     <a href="#" th:href="'/events'" th:text="'Events'"/>
     <a href="#" th:href="'/uploads'" th:text="'Uploads'"/>
 
@@ -25,7 +26,7 @@
             <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.birthday}"></td>
-            <!--<td><a href="#" th:href="@{/tickets(userid=${user.id})}" th:text="'Booked tickets'"/></td>-->
+            <td><a href="#" th:href="@{/users/tickets(userId=${user.id})}" th:text="'PDF'"/></td>
         </tr>
         </tbody>
     </table>
