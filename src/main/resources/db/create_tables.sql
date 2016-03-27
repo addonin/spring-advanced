@@ -87,4 +87,6 @@ INSERT INTO roles(user_id, role_id) VALUES (0,1);
 INSERT INTO roles(user_id, role_id) VALUES (1,0);
 INSERT INTO roles(user_id, role_id) VALUES (2,0);
 
-INSERT INTO event(id, name, date, ticketPrice, rating, auditorium_id) VALUES (0, 'event0', date'2016-01-01', 10.99, 1, 1)
+INSERT INTO event (id, name, date, ticketPrice, rating, auditorium_id) VALUES (0, 'event0', DATE '2016-01-01', 10.99, 1, 1);
+
+INSERT INTO ticket (id, price, seat, event_id) VALUES (0, 10.99, 5, 0);

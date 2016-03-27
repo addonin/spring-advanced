@@ -25,7 +25,7 @@ public class TicketRepositoryImpl implements TicketRepository {
             "LEFT JOIN event e ON t.event_id = e.id";
     private static final String SELECT_BY_EVENT_ID = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN event e ON t.event_id = e.id\n" +
-            "WHERE e.event_id = ?";
+            "WHERE e.id = ?";
     private static final String UPDATE_TICKET = "UPDATE ticket SET price = ?, seat = ?, event_id = ?";
     private static final String SELECT_BOOKED_TICKETS = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN tickets ts ON ts.ticket_id = t.id\n" +

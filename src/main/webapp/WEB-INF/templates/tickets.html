@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${event.name}"></title>
+</head>
+<body>
+
+<a href="#" th:href="'/logout'" th:text="'Logout'"></a><br/>
+<a href="#" th:href="'/users'" th:text="'Users'"></a>
+<a href="#" th:href="'/uploads'" th:text="'Uploads'"></a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Base price</th>
+        <th>Rating</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.id}"></td>
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.ticketPrice}"></td>
+        <td th:text="${event.rating}"></td>
+        <td th:text="${event.dateTime}"></td>
+        <td><a href="#" th:href="@{/events/tickets(eventId=${event.id})}" th:text="'Show tickets'"/></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
