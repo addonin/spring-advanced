@@ -30,19 +30,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/tickets", params = "userId", method = RequestMethod.GET)
-    public String getBookedTickets(@RequestParam("userId") int userId) {
-
-        Collection<Ticket> tickets = userService.getBookedTicketsByUserId(userId);
-        /*model.addAttribute("tickets", tickets);
-
-        List<TicketReportDto> ticketBeans = tickets.stream()
-                .map(t -> new TicketReportDto(t))
-                .collect(Collectors.toList());
-
-        model.addAttribute("datasource", new JRBeanCollectionDataSource(ticketBeans));
-        model.addAttribute("format", "pdf");
-        return "rpt_tickets";*/
-        return null;
+    public String getBookedTickets(@RequestParam("userId") int userId, ModelMap model) {
+        Collection<Ticket> tickets = userService.getBookedTickets(userId);
+        model.addAttribute("tickets", tickets);
+        return "tickets";
     }
 
 }

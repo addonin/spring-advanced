@@ -1,9 +1,8 @@
-package com.epam.springadvanced;
+package com.epam.springadvanced.context;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.dialect.SpringStandardDialect;
@@ -87,7 +87,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     private Set<IDialect> additionalDialects() {
         Set<IDialect> dialects = new HashSet<>();
         dialects.add(new SpringSecurityDialect());
-        dialects.add(new LayoutDialect());
+        //dialects.add(new LayoutDialect());
+        dialects.add(new Java8TimeDialect());
+        //dialects.add(new StandardDialect());
         return dialects;
     }
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create event</title>
+</head>
+<body>
+
+    <a href="#" th:href="'/logout'" th:text="'Logout'"></a><br/>
+    <a href="#" th:href="'/events'" th:text="'Events'"></a>
+    <a href="#" th:href="'/users'" th:text="'Users'"></a>
+    <a href="#" th:href="'/uploads'" th:text="'Uploads'"></a>
+
+    <form action="#" th:action="@{/events}" th:object="${event}" method="post">
+        <label for="name">Name:</label>
+        <input id="name" type="text" th:field="*{name}"/><br/>
+        <!--<label for="dateTime">Datetime:</label>
+        <input id="dateTime" type="datetime-local" th:field="*{dateTime}"/><br/>-->
+        <label for="ticketPrice">Price:</label>
+        <input id="ticketPrice" type="number" th:field="*{ticketPrice}" name="ticketPrice"/><br/>
+        <label for="rating">Rating:</label>
+        <select id="rating" th:field="*{rating}">
+            <option th:each="rating : ${T(com.epam.springadvanced.domain.enums.Rating.values()}" th:value="${rating.getValue()}" th:text="${rating.name()}"></option>
+        </select><br/>
+        <label for="auditorium">Auditorium:</label>
+        <select id="auditorium" th:field="*{auditorium}">
+            <option th:type="Integer" th:each="auditorium : ${auditorium}" th:value="${auditorium.id}" th:text="${auditorium.name}">
+            </option>
+        </select><br/>
+        <input type="submit" value="Create"/>
+    </form>
+
+</body>
+</html>
+

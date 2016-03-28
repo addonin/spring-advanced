@@ -11,9 +11,10 @@ public interface TicketRepository {
 
     Collection<Ticket> getAll();
 
-    Collection<Ticket> getByEventId(int eventId);
+    Collection<Ticket> getFreeTickets(long eventId);
 
-    Collection<Ticket> getBookedTickets();
+    Collection<Ticket> getBookedTickets(long eventId);
+
 
     Collection<Ticket> getBookedTicketsByUserId(long userId);
 

@@ -58,12 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<Ticket> getBookedTickets() {
-        return ticketRepository.getBookedTickets();
-    }
-
-    @Override
-    public Collection<Ticket> getBookedTicketsByUserId(long userId) {
+    public Collection<Ticket> getBookedTickets(long userId) {
         return ticketRepository.getBookedTicketsByUserId(userId);
     }
 

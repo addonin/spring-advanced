@@ -51,4 +51,5 @@ public class CounterAspect {
         counterRepository.save(Counters.TICKET_BOOKED.name(), count);
         log.info(Counters.TICKET_BOOKED + ": " + count + " times");
     }
+
 }

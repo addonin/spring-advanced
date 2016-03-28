@@ -1,10 +1,11 @@
-package com.epam.springadvanced.utils;
+package com.epam.springadvanced.utils.converter;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Convert {
+public class DateTimeConverter {
+
     public static Timestamp toTimestamp(LocalDateTime dateTime){
         if(dateTime!=null){
             return Timestamp.valueOf(dateTime);
@@ -18,4 +19,5 @@ public class Convert {
         }
         return null;
     }
+
 }

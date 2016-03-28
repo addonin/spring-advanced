@@ -82,7 +82,7 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(TicketWithoutEventException::new);
 
         //false if ticket already booked for specified event and seat
-        boolean notBooked = ticketRepository.getBookedTickets().stream()
+        boolean notBooked = ticketRepository.getBookedTickets(ticket.getEvent().getId()).stream()
                 .noneMatch(t -> t.getEvent().getName().equals(ticket.getEvent().getName()) &&
                         t.getSeat().getNumber() == ticket.getSeat().getNumber()
                 );
@@ -98,7 +98,13 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Collection<Ticket> getTicketsForEvent(int eventId) {
-        return ticketRepository.getByEventId(eventId).stream().collect(Collectors.toList());
+    public Collection<Ticket> getFreeTickets(long eventId) {
+        return ticketRepository.getFreeTickets(eventId).stream().collect(Collectors.toList());
     }
+
+    @Override
+    public Collection<Ticket> getBookedTickets(long eventId) {
+        return ticketRepository.getBookedTickets(eventId).stream().collect(Collectors.toList());
+    }
+
 }

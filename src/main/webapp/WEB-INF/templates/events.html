@@ -10,6 +10,10 @@
     <a href="#" th:href="'/users'" th:text="'Users'"></a>
     <a href="#" th:href="'/uploads'" th:text="'Uploads'"></a>
 
+    <div sec:authorize="hasRole('ROLE_BOOKING_MANAGER')">
+        <a href="#" th:href="@{/events/create-form}" th:text="'Create event'"></a>
+    </div>
+
     <table>
         <thead>
         <tr>

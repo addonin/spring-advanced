@@ -4,7 +4,7 @@ import com.epam.springadvanced.domain.entity.User;
 import com.epam.springadvanced.repository.UserRepository;
 import com.epam.springadvanced.repository.WinsRepository;
 import com.epam.springadvanced.domain.enums.Role;
-import com.epam.springadvanced.utils.Convert;
+import com.epam.springadvanced.utils.converter.DateTimeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,7 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String DELETE_USER = "DELETE FROM user WHERE id=?";
     private static final String DELETE_USER_ROLE = "DELETE FROM roles WHERE user_id=?";
     private static final String SELECT_ALL = "SELECT * FROM user";
-    private static final String SELECT_USER_ROLES = "select name from role r join roles rs on rs.role_id = r.id here user_id=?";
+    private static final String SELECT_USER_ROLES = "select name from role r join roles rs on rs.role_id = r.id where user_id=?";
     private static final String SELECT_ROLE_ID_BY_NAME = "select id from role where name = ?";
 
     @Autowired
@@ -50,7 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
                 jdbcTemplate.update(UPDATE_USER_BY_ID,
                         user.getName(),
                         user.getEmail(),
-                        Convert.toTimestamp(user.getBirthday()),
+                        DateTimeConverter.toTimestamp(user.getBirthday()),
                         user.getPassword(),
                         user.getId());
                 updatedUser = findById(user.getId());
@@ -59,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
                 jdbcTemplate.update(UPDATE_USER_BY_NAME,
                         user.getName(),
                         user.getEmail(),
-                        Convert.toTimestamp(user.getBirthday()),
+                        DateTimeConverter.toTimestamp(user.getBirthday()),
                         user.getPassword(),
                         user.getName());
                 updatedUser = findByName(user.getName());
@@ -71,7 +71,7 @@ public class UserRepositoryImpl implements UserRepository {
                 Map<String, Object> args = new HashMap<>();
                 args.put("name", user.getName());
                 args.put("email", user.getEmail());
-                args.put("birthDay", Convert.toTimestamp(user.getBirthday()));
+                args.put("birthDay", DateTimeConverter.toTimestamp(user.getBirthday()));
                 args.put("password", user.getPassword());
                 user.setId(insert.executeAndReturnKey(args).longValue());
             } else {

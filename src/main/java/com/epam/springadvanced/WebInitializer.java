@@ -1,5 +1,7 @@
 package com.epam.springadvanced;
 
+import com.epam.springadvanced.context.SpringConfiguration;
+import com.epam.springadvanced.context.WebConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.MultipartConfigElement;

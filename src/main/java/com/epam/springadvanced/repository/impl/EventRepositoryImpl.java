@@ -4,7 +4,7 @@ import com.epam.springadvanced.domain.entity.Event;
 import com.epam.springadvanced.domain.enums.Rating;
 import com.epam.springadvanced.repository.AuditoriumRepository;
 import com.epam.springadvanced.repository.EventRepository;
-import com.epam.springadvanced.utils.Convert;
+import com.epam.springadvanced.utils.converter.DateTimeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,7 +44,7 @@ public class EventRepositoryImpl implements EventRepository {
             if (event.getId() != null) {
                 updatedRow = jdbcTemplate.update(UPDATE_BY_ID,
                         event.getName(),
-                        Convert.toTimestamp(event.getDateTime()),
+                        DateTimeConverter.toTimestamp(event.getDateTime()),
                         event.getTicketPrice(),
                         event.getRating().getValue(),
                         event.getAuditorium() != null ? event.getAuditorium().getId() : null,
@@ -55,7 +55,7 @@ public class EventRepositoryImpl implements EventRepository {
             } else if (event.getName() != null) {
                 updatedRow = jdbcTemplate.update(UPDATE_BY_NAME,
                         event.getName(),
-                        Convert.toTimestamp(event.getDateTime()),
+                        DateTimeConverter.toTimestamp(event.getDateTime()),
                         event.getTicketPrice(),
                         event.getRating().getValue(),
                         event.getAuditorium() != null ? event.getAuditorium().getId() : null,
@@ -69,7 +69,7 @@ public class EventRepositoryImpl implements EventRepository {
                 insert.setGeneratedKeyName("id");
                 Map<String, Object> args = new HashMap<>();
                 args.put("name", event.getName());
-                args.put("date", Convert.toTimestamp(event.getDateTime()));
+                args.put("date", DateTimeConverter.toTimestamp(event.getDateTime()));
                 args.put("ticketPrice", event.getTicketPrice());
                 args.put("rating", event.getRating().getValue());
                 args.put("auditorium_id", event.getAuditorium() != null ? event.getAuditorium().getId() : null);

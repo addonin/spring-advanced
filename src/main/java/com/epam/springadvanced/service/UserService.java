@@ -20,9 +20,7 @@ public interface UserService {
 
     User getUserByName(String name);
 
-    Collection<Ticket> getBookedTickets();
-
-    Collection<Ticket> getBookedTicketsByUserId(long userId);
+    Collection<Ticket> getBookedTickets(long userId);
 
     Collection<User> getAll();
 

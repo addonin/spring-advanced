@@ -1,4 +1,4 @@
-package com.epam.springadvanced;
+package com.epam.springadvanced.context;
 
 import com.epam.springadvanced.domain.entity.Auditorium;
 import org.springframework.beans.factory.annotation.Value;

@@ -14,6 +14,9 @@ public class Auditorium {
     private int numberOfSeats;
     private Collection<Seat> seats;
 
+    public Auditorium() {
+    }
+
     public Auditorium(int id) {
         this.id = id;
     }
