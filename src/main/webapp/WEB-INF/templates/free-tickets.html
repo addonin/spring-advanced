@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tickets</title>
+</head>
+<body>
+
+    <a href="#" th:href="'/logout'" th:text="'Logout'"></a><br/>
+    <a href="#" th:href="'/events'" th:text="'Events'"></a>
+    <a href="#" th:href="'/users'" th:text="'Users'"></a>
+    <a href="#" th:href="'/uploads'" th:text="'Uploads'"></a><br/>
+
+    <a href="#" th:href="@{/booking/tickets(eventId = ${eventId}, ticketId=${ticket.getId()})}" th:each="ticket : ${tickets}" th:text="${ticket.getSeat().getNumber()}"></a>
+
+</body>
+</html>

@@ -9,6 +9,8 @@ public interface TicketRepository {
 
     Ticket save(Ticket ticket);
 
+    Ticket get(long id);
+
     Collection<Ticket> getAll();
 
     Collection<Ticket> getFreeTickets(long eventId);

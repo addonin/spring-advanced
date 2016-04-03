@@ -16,8 +16,8 @@
         <label for="dateTime">Datetime:</label>
         <input id="dateTime" type="datetime-local" th:field="*{dateTime}"/><br/>
         <label for="auditorium">Auditorium:</label>
-        <select id="auditorium">
-            <option th:type="Integer" th:each="auditorium : ${auditorium}" th:value="${auditorium.id}" th:text="${auditorium.name}">
+        <select id="auditorium" th:field="*{auditorium}">
+            <option th:each="auditorium : ${auditoriums}" th:value="${auditorium.id}" th:text="${auditorium.name}">
             </option>
         </select><br/>
         <input type="submit" value="Create"/>

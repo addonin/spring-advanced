@@ -3,6 +3,7 @@ package com.epam.springadvanced.service.impl;
 import com.epam.springadvanced.domain.entity.Auditorium;
 import com.epam.springadvanced.domain.entity.Event;
 import com.epam.springadvanced.repository.EventRepository;
+import com.epam.springadvanced.service.BookingService;
 import com.epam.springadvanced.service.EventService;
 import com.epam.springadvanced.domain.enums.Rating;
 import com.epam.springadvanced.service.exception.AuditoriumAlreadyAssignedException;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -23,11 +25,15 @@ public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
 
     @Autowired
+    private BookingService bookingService;
+
+    @Autowired
     public EventServiceImpl(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
     @Override
+    @Transactional
     public Event create(String name, float price, Rating rating) {
         Event event = new Event(name, null, price, rating);
         log.info("Event <" + event.getName() + "> created");
@@ -35,6 +41,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public Event create(String name, LocalDateTime dateTime, float price, Rating rating) {
         Event event = new Event(name, dateTime, price, rating);
         log.info("Event <" + event.getName() + "> created");
@@ -77,6 +84,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public Event assignAuditorium(Event event, Auditorium auditorium, LocalDateTime dateTime) throws AuditoriumAlreadyAssignedException {
         if (event != null && auditorium != null && dateTime != null) {
             long count = eventRepository.getAll().stream()
@@ -91,7 +99,7 @@ public class EventServiceImpl implements EventService {
             event.setAuditorium(auditorium);
             event.setDateTime(dateTime);
             eventRepository.save(event);
-
+            bookingService.createTickets(event);
             log.info("Event <" + event.getName() + "> assigned to auditorium <" + auditorium.getName() + ">");
         }
         return event;

@@ -19,8 +19,9 @@ CREATE TABLE PUBLIC.event
 CREATE TABLE PUBLIC.ticket (
   id       INT PRIMARY KEY NOT NULL IDENTITY,
   price    FLOAT           NOT NULL,
+  state    VARCHAR(10)     NOT NULL,
   seat     INT             NOT NULL,
-  event_id INT DEFAULT NULL,
+  event_id INT             DEFAULT NULL,
   CONSTRAINT FK_EVENT_ID FOREIGN KEY (event_id) REFERENCES event (id)
 );
 
@@ -86,14 +87,9 @@ INSERT INTO role(id,name) VALUES (0,'REGISTERED_USER');
 INSERT INTO role(id,name) VALUES (1,'BOOKING_MANAGER');
 
 INSERT INTO user(id, name, email, birthday, password, enabled) VALUES (100,'admin','oleg.motorin@gmail.com',date'1978-12-08','$2a$10$mPHOZ5TpfU6IqUxzCGjAgOrSAvxPbUh/YijTONsydZFhyq0bIVIEC', 1); -- pass:admin
-INSERT INTO user(id, name, email, birthday, password, enabled) VALUES (101,'oleg','oleg.motorin@gmail.com',date'1978-12-08','$2a$08$l65pz/4gXDQAxgXuVCC.rOzv0MMzlk2JNGFxDwGV2zMsHuAry2Qki', 1);
 INSERT INTO user(id, name, email, birthday, password, enabled) VALUES (102,'test','test@test',date'1978-12-08','$2a$10$CZy6BYAJheaoperiSQrqleMQeBJo4RC8yIoldAPujlevDKTRZqhzy', 1); -- pass:test
 
 INSERT INTO roles(user_id, role_id) VALUES (100,0);
 INSERT INTO roles(user_id, role_id) VALUES (100,1);
-INSERT INTO roles(user_id, role_id) VALUES (101,0);
 INSERT INTO roles(user_id, role_id) VALUES (102,0);
 
-INSERT INTO event (id, name, date, ticketPrice, rating, auditorium_id) VALUES (0, 'event0', DATE '2016-01-01', 10.99, 1, 1);
-
-INSERT INTO ticket (id, price, seat, event_id) VALUES (0, 10.99, 5, 0);

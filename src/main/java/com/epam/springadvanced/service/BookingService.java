@@ -15,6 +15,10 @@ public interface BookingService {
 
     float getTicketPrice(Event event, LocalDateTime dateTime, Collection<Integer> seatNumbers, User user) throws UserNotRegisteredException, EventNotAssignedException;
 
+    void createTickets(Event event);
+
+    Ticket getTicket(long id);
+
     void bookTicket(User user, Ticket ticket) throws UserNotRegisteredException, TicketAlreadyBookedException, TicketWithoutEventException;
 
     Collection<Ticket> getFreeTickets(long eventId);

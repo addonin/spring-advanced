@@ -1,6 +1,7 @@
 package com.epam.springadvanced.repository.impl;
 
 import com.epam.springadvanced.domain.entity.*;
+import com.epam.springadvanced.domain.enums.TicketState;
 import com.epam.springadvanced.repository.AuditoriumRepository;
 import com.epam.springadvanced.repository.EventRepository;
 import com.epam.springadvanced.repository.TicketRepository;
@@ -21,6 +22,8 @@ import java.util.Map;
 @Repository
 public class TicketRepositoryImpl implements TicketRepository {
 
+    private static final String SELECT_TICKET_BY_ID = "SELECT t.*, e.* FROM ticket t\n" +
+            "LEFT JOIN event e ON t.event_id = e.id WHERE t.id = ?";
     private static final String SELECT_ALL = "SELECT t.*, e.* FROM ticket t\n" +
             "LEFT JOIN event e ON t.event_id = e.id";
     private static final String SELECT_FREE_TICKETS_BY_EVENT_ID = "SELECT t.*, e.* FROM ticket t\n" +
@@ -60,6 +63,7 @@ public class TicketRepositoryImpl implements TicketRepository {
                 Map<String, Object> args = new HashMap<>();
                 args.put("price", ticket.getPrice());
                 args.put("seat", ticket.getSeat().getNumber());
+                args.put("state", ticket.getState());
                 Event event = ticket.getEvent();
                 if (event != null) {
                     if (event.getId() == null) {
@@ -76,6 +80,11 @@ public class TicketRepositoryImpl implements TicketRepository {
             }
         }
         return ticket;
+    }
+
+    @Override
+    public Ticket get(long id) {
+        return jdbcTemplate.queryForObject(SELECT_TICKET_BY_ID, new TicketMapper(), id);
     }
 
     @Override
@@ -145,16 +154,17 @@ public class TicketRepositoryImpl implements TicketRepository {
             Ticket t = new Ticket();
             t.setId(rs.getLong(1));
             t.setPrice(rs.getFloat(2));
-            t.setSeat(new Seat(rs.getInt(3)));
+            t.setState(TicketState.valueOf(rs.getString(3)));
+            t.setSeat(new Seat(rs.getInt(4)));
 
             Event e = new Event(
-                    rs.getLong(5),
-                    rs.getString(6),
-                    rs.getTimestamp(7) != null ? rs.getTimestamp(7).toLocalDateTime() : null,
-                    rs.getFloat(8),
-                    Rating.getRating(rs.getInt(9))
+                    rs.getLong(6),
+                    rs.getString(7),
+                    rs.getTimestamp(8) != null ? rs.getTimestamp(8).toLocalDateTime() : null,
+                    rs.getFloat(9),
+                    Rating.getRating(rs.getInt(10))
             );
-            e.setAuditorium(new Auditorium(rs.getInt(10)));
+            e.setAuditorium(new Auditorium(rs.getInt(11)));
             t.setEvent(e);
 
             return t;

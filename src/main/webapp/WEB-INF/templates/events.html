@@ -39,10 +39,10 @@
                     <div th:if="${event.auditorium == null}">
                         <a href="#" th:href="@{/events/auditorium(eventId=${event.id})}" th:text="'Assign auditorium'"></a>
                     </div>
-                    <a href="#" th:href="@{/events/booked-tickets(eventId=${event.id})}" th:text="'Booked tickets'"></a>
                 </div>
                 <div th:if="${event.auditorium != null}">
-                    <a href="#" th:href="@{/events/free-tickets(eventId=${event.id})}" th:text="'Free tickets'"></a>
+                    <a href="#" th:href="@{/booking/free-tickets(eventId=${event.id})}" th:text="'Free tickets'"></a>
+                    <a href="#" th:href="@{/booking/booked-tickets(eventId=${event.id})}" th:text="'Booked tickets'"></a>
                 </div>
             </td>
         </tr>

@@ -2,6 +2,7 @@ package com.epam.springadvanced.service.impl;
 
 import com.epam.springadvanced.domain.entity.*;
 import com.epam.springadvanced.domain.enums.Rating;
+import com.epam.springadvanced.domain.enums.TicketState;
 import com.epam.springadvanced.repository.AuditoriumRepository;
 import com.epam.springadvanced.repository.TicketRepository;
 import com.epam.springadvanced.service.*;
@@ -29,9 +30,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private EventService eventService;
 
     @Autowired
     private TicketRepository ticketRepository;
@@ -66,6 +64,24 @@ public class BookingServiceImpl implements BookingService {
             price = price - (100 * discount);
         }
         return price;
+    }
+
+    @Override
+    public void createTickets(Event event) {
+        Auditorium auditorium = event.getAuditorium();
+        Collection<Seat> seats = auditorium.getSeats();
+        for (Seat seat : seats) {
+            Ticket ticket = new Ticket();
+            ticket.setEvent(event);
+            ticket.setSeat(seat);
+            ticket.setState(TicketState.FREE);
+            ticketRepository.save(ticket);
+        }
+    }
+
+    @Override
+    public Ticket getTicket(long id) {
+        return ticketRepository.get(id);
     }
 
     @Override
