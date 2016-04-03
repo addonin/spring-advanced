@@ -4,20 +4,16 @@ import com.epam.springadvanced.domain.entity.Auditorium;
 import com.epam.springadvanced.domain.entity.Event;
 import com.epam.springadvanced.domain.enums.Rating;
 import com.epam.springadvanced.service.EventService;
+import com.epam.springadvanced.service.exception.AuditoriumAlreadyAssignedException;
 import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -61,12 +57,26 @@ public class EventController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String createEvent(@ModelAttribute("event") Event event,
-                              @ModelAttribute("rating") Rating rating,
-                              @ModelAttribute("auditorium") Auditorium auditorium,
-                              @ModelAttribute("dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.NONE) LocalDateTime dateTime,
-                              BindingResult bindingResult, ModelMap model) {
-        eventService.create(event.getName(), dateTime, event.getTicketPrice(), rating);
-        return "events";
+                              //@ModelAttribute("rating") Rating rating,
+                              //@ModelAttribute("dateTime") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dateTime,
+                              BindingResult bindingResult) throws AuditoriumAlreadyAssignedException {
+        eventService.create(event.getName(), event.getDateTime(), event.getTicketPrice(), event.getRating());
+        return "redirect:/events";
+    }
+
+    @RequestMapping(value = "/auditorium", params = {"eventId"}, method = RequestMethod.GET)
+    public ModelAndView assignEventAuditoriumForm(@RequestParam("eventId") Integer eventId, ModelMap model) {
+        model.addAttribute("event", eventService.getById(eventId));
+        model.addAttribute("auditorium", auditoriums);
+        return new ModelAndView("event-auditorium", model);
+    }
+
+    @RequestMapping(value = "/auditorium", method = RequestMethod.POST)
+    public String assignEventAuditorium(@ModelAttribute("event") Event event,
+                                        @ModelAttribute("auditorium") Auditorium auditorium)
+            throws AuditoriumAlreadyAssignedException {
+        eventService.assignAuditorium(eventService.getById(event.getId()), auditorium, event.getDateTime());
+        return "redirect:/events";
     }
 
 }

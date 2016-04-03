@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cinema events</title>
+</head>
+<body>
+
+    <a href="#" th:href="'/logout'" th:text="'Logout'"></a><br/>
+    <a href="#" th:href="'/users'" th:text="'Users'"></a>
+    <a href="#" th:href="'/uploads'" th:text="'Uploads'"></a>
+
+    <p th:text="${event.name}"></p>
+    <form action="#" th:action="@{/events/auditorium}" th:object="${event}" method="post">
+        <input type="hidden" data-th-value="*{id}" data-th-field="*{id}"/><br/>
+        <label for="dateTime">Datetime:</label>
+        <input id="dateTime" type="datetime-local" th:field="*{dateTime}"/><br/>
+        <label for="auditorium">Auditorium:</label>
+        <select id="auditorium">
+            <option th:type="Integer" th:each="auditorium : ${auditorium}" th:value="${auditorium.id}" th:text="${auditorium.name}">
+            </option>
+        </select><br/>
+        <input type="submit" value="Create"/>
+    </form>
+
+</body>
+</html>

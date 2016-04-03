@@ -14,9 +14,9 @@
         RESTRICTED AREA (for managers only)
     </div>
 
-    <h3>Users upload</h3>
-
     <div sec:authorize="hasRole('ROLE_BOOKING_MANAGER')">
+
+        <h3>Users upload</h3>
 
         <form action="#" th:action="@{/uploads/users}" method="post" enctype="multipart/form-data">
             <input type="file" name="users"/>

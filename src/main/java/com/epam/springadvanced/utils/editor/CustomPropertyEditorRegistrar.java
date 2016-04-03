@@ -13,7 +13,9 @@ public class CustomPropertyEditorRegistrar implements PropertyEditorRegistrar {
 
     @Override
     public void registerCustomEditors(PropertyEditorRegistry registry) {
+        //registry.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm"), false));
         registry.registerCustomEditor(Auditorium.class, new AuditoriumEditor());
         registry.registerCustomEditor(Rating.class, new RatingEditor());
     }
+
 }

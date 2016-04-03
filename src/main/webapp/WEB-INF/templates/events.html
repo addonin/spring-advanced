@@ -22,6 +22,7 @@
             <th>Base price</th>
             <th>Rating</th>
             <th>Date</th>
+            <th>Auditorium</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -32,10 +33,16 @@
             <td th:text="${event.ticketPrice}"></td>
             <td th:text="${event.rating}"></td>
             <td th:text="${event.dateTime}"></td>
+            <td th:text="${event.auditorium?.getName()}"></td>
             <td>
-                <a href="#" th:href="@{/events/free-tickets(eventId=${event.id})}" th:text="'Free tickets'"></a>
                 <div sec:authorize="hasRole('ROLE_BOOKING_MANAGER')">
+                    <div th:if="${event.auditorium == null}">
+                        <a href="#" th:href="@{/events/auditorium(eventId=${event.id})}" th:text="'Assign auditorium'"></a>
+                    </div>
                     <a href="#" th:href="@{/events/booked-tickets(eventId=${event.id})}" th:text="'Booked tickets'"></a>
+                </div>
+                <div th:if="${event.auditorium != null}">
+                    <a href="#" th:href="@{/events/free-tickets(eventId=${event.id})}" th:text="'Free tickets'"></a>
                 </div>
             </td>
         </tr>

@@ -1,6 +1,7 @@
 package com.epam.springadvanced.domain.entity;
 
 import com.epam.springadvanced.domain.enums.Rating;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -8,6 +9,7 @@ public class Event {
 
     private Long id;
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateTime;
     private float ticketPrice;
     private Rating rating;
