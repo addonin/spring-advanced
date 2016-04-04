@@ -4,6 +4,7 @@ import com.epam.springadvanced.domain.entity.Ticket;
 import com.epam.springadvanced.service.UserAccountService;
 import com.epam.springadvanced.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ public class UserController {
         return "tickets";
     }
 
+    @PreAuthorize("hasRole('BOOKING_MANAGER')")
     @RequestMapping(value = "/fill-account", params = {"userId", "amount"}, method = RequestMethod.POST)
     public String fillAccount(@RequestParam("userId") long userId,
                               @RequestParam("amount") float amount) {
