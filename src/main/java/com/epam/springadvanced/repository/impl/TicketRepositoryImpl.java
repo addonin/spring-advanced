@@ -29,7 +29,7 @@ public class TicketRepositoryImpl implements TicketRepository {
     private static final String SELECT_FREE_TICKETS_BY_EVENT_ID = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN event e ON t.event_id = e.id\n" +
             "WHERE e.id = ? AND t.state LIKE 'FREE'";
-    private static final String UPDATE_TICKET = "UPDATE ticket SET price = ?, seat = ?, event_id = ?, state = ?";
+    private static final String UPDATE_TICKET = "UPDATE ticket SET price = ?, seat = ?, event_id = ?, state = ? WHERE id = ?";
     private static final String SELECT_BOOKED_TICKETS_BY_EVENT_ID = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN tickets ts ON ts.ticket_id = t.id\n" +
             "LEFT JOIN user u ON ts.user_id = u.id\n" +
@@ -78,7 +78,8 @@ public class TicketRepositoryImpl implements TicketRepository {
                         ticket.getPrice(),
                         ticket.getSeat().getNumber(),
                         ticket.getEvent() != null ? ticket.getEvent().getId() : null,
-                        ticket.getState().name());
+                        ticket.getState().name(),
+                        ticket.getId());
             }
         }
         return ticket;
