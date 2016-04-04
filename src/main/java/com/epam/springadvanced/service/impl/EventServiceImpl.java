@@ -49,6 +49,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public void remove(Event event) {
         if (event != null && event.getId()!=null) {
             eventRepository.delete(event.getId());

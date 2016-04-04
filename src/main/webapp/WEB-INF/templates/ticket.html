@@ -1,1 +1,21 @@
-ticket
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ticket ${ticket.id}</title>
+</head>
+<body>
+
+    <a href="#" th:href="'/logout'" th:text="'Logout'"></a><br/>
+    <a href="#" th:href="'/users'" th:text="'Users'"></a>
+    <a href="#" th:href="'/uploads'" th:text="'Uploads'"></a>
+    <a href="#" th:href="'/events'" th:text="'Events'"></a>
+
+    <p th:text="${ticket.event.name}"></p>
+    <p th:text="${ticket.price}"></p>
+    <form action="#" th:action="@{/booking/tickets(ticketId=${ticket.id})}" method="post">
+        <input type="submit" value="Book"/>
+    </form>
+
+</body>
+</html>

@@ -2,9 +2,12 @@ package com.epam.springadvanced.controller;
 
 import com.epam.springadvanced.domain.entity.Event;
 import com.epam.springadvanced.domain.entity.Ticket;
+import com.epam.springadvanced.domain.entity.User;
 import com.epam.springadvanced.service.BookingService;
 import com.epam.springadvanced.service.UserService;
 import com.epam.springadvanced.service.exception.EventNotAssignedException;
+import com.epam.springadvanced.service.exception.TicketAlreadyBookedException;
+import com.epam.springadvanced.service.exception.TicketWithoutEventException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author dmytro_adonin
@@ -47,7 +51,6 @@ public class BookingController {
 
     @RequestMapping(value = "/tickets", params = {"eventId", "ticketId"}, method = RequestMethod.GET)
     public ModelAndView getTicket(@RequestParam("ticketId") Integer ticketId,
-                                  @RequestParam("eventId") Integer eventId,
                                   Principal principal) throws EventNotAssignedException {
         ModelAndView modelAndView = new ModelAndView("/ticket");
         Ticket ticket = bookingService.getTicket(ticketId);
@@ -56,7 +59,21 @@ public class BookingController {
                 event, event.getDateTime(),
                     Collections.singletonList(ticket.getSeat().getNumber()),
                         userService.getUserByEmail(principal.getName())));
+        modelAndView.addObject("ticket", ticket);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/tickets", params = "ticketId", method = RequestMethod.POST)
+    public String createEvent(@RequestParam("ticketId") long ticketId,
+                              Principal principal)
+            throws TicketAlreadyBookedException, TicketWithoutEventException, EventNotAssignedException {
+        User user = userService.getUserByEmail(principal.getName());
+        Ticket ticket = bookingService.getTicket(ticketId);
+        Event event = ticket.getEvent();
+        List<Integer> seatNumbers = Collections.singletonList(ticket.getSeat().getNumber());
+        float price = bookingService.getTicketPrice(event, event.getDateTime(), seatNumbers, user);
+        bookingService.bookTicket(user, ticket, price);
+        return "redirect:/events";
     }
 
 }

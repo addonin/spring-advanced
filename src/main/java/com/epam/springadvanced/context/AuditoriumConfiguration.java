@@ -43,4 +43,5 @@ public class AuditoriumConfiguration {
     ) {
         return new Auditorium(3, name, numberOfSeats, vipSeats);
     }
+
 }

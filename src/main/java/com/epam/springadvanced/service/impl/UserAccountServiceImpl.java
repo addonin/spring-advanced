@@ -18,14 +18,15 @@ public class UserAccountServiceImpl implements UserAccountService {
     private UserAccountRepository userAccountRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public UserAccount getUserAccount(long userId) {
-        return null;
+        return userAccountRepository.getUserAccount(userId);
     }
 
     @Override
     @Transactional
-    public void fillAccount(long userId, float amount) {
-        userAccountRepository.fillAccount(userId, amount);
+    public void changeAmount(long userId, float amount) {
+        userAccountRepository.changeAmount(userId, amount);
     }
 
 }

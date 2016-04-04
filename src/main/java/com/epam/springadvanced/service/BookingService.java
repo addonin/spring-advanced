@@ -19,7 +19,7 @@ public interface BookingService {
 
     Ticket getTicket(long id);
 
-    void bookTicket(User user, Ticket ticket) throws UserNotRegisteredException, TicketAlreadyBookedException, TicketWithoutEventException;
+    void bookTicket(User user, Ticket ticket, float price) throws UserNotRegisteredException, TicketAlreadyBookedException, TicketWithoutEventException;
 
     Collection<Ticket> getFreeTickets(long eventId);
 

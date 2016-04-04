@@ -72,9 +72,13 @@ public class EventController {
     }
 
     @RequestMapping(value = "/auditorium", method = RequestMethod.POST)
-    public String assignEventAuditorium(@ModelAttribute("event") Event event)
+    public String assignEventAuditorium(@ModelAttribute("event") Event event,
+                                        @RequestParam("auditorium") Integer auditoriumId)
             throws AuditoriumAlreadyAssignedException {
-        eventService.assignAuditorium(eventService.getById(event.getId()), event.getAuditorium(), event.getDateTime());
+        eventService.assignAuditorium(
+                eventService.getById(event.getId()),
+                    auditoriums.stream().filter(current -> current.getId() == auditoriumId).findFirst().get(),
+                        event.getDateTime());
         return "redirect:/events";
     }
 

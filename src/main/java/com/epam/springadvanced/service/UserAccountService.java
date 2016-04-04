@@ -10,6 +10,6 @@ public interface UserAccountService {
 
     UserAccount getUserAccount(long userId);
 
-    void fillAccount(long userId, float amount);
+    void changeAmount(long userId, float amount);
 
 }

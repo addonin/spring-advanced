@@ -43,7 +43,7 @@ public class UserController {
     @RequestMapping(value = "/fill-account", params = {"userId", "amount"}, method = RequestMethod.POST)
     public String fillAccount(@RequestParam("userId") long userId,
                               @RequestParam("amount") float amount) {
-        userAccountService.fillAccount(userId, amount);
+        userAccountService.changeAmount(userId, amount);
         return "redirect:/users";
     }
 

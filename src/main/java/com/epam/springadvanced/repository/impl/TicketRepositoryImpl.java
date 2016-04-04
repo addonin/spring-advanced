@@ -28,12 +28,12 @@ public class TicketRepositoryImpl implements TicketRepository {
             "LEFT JOIN event e ON t.event_id = e.id";
     private static final String SELECT_FREE_TICKETS_BY_EVENT_ID = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN event e ON t.event_id = e.id\n" +
-            "WHERE e.id = ?";
-    private static final String UPDATE_TICKET = "UPDATE ticket SET price = ?, seat = ?, event_id = ?";
+            "WHERE e.id = ? AND t.state LIKE 'FREE'";
+    private static final String UPDATE_TICKET = "UPDATE ticket SET price = ?, seat = ?, event_id = ?, state = ?";
     private static final String SELECT_BOOKED_TICKETS_BY_EVENT_ID = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN tickets ts ON ts.ticket_id = t.id\n" +
             "LEFT JOIN user u ON ts.user_id = u.id\n" +
-            "LEFT JOIN event e ON t.event_id = e.id";
+            "LEFT JOIN event e ON t.event_id = e.id WHERE t.state LIKE 'BOOKED'";
     private static final String SELECT_BOOKED_TICKETS_BY_USER_ID = "SELECT t.*, e.* FROM ticket t\n" +
             "INNER JOIN tickets ts ON ts.ticket_id = t.id\n" +
             "LEFT JOIN user u ON ts.user_id = u.id\n" +
@@ -64,6 +64,7 @@ public class TicketRepositoryImpl implements TicketRepository {
                 args.put("price", ticket.getPrice());
                 args.put("seat", ticket.getSeat().getNumber());
                 args.put("state", ticket.getState());
+                args.put("vip", ticket.getSeat().isVip());
                 Event event = ticket.getEvent();
                 if (event != null) {
                     if (event.getId() == null) {
@@ -76,7 +77,8 @@ public class TicketRepositoryImpl implements TicketRepository {
                 jdbcTemplate.update(UPDATE_TICKET,
                         ticket.getPrice(),
                         ticket.getSeat().getNumber(),
-                        ticket.getEvent() != null ? ticket.getEvent().getId() : null);
+                        ticket.getEvent() != null ? ticket.getEvent().getId() : null,
+                        ticket.getState().name());
             }
         }
         return ticket;
@@ -122,9 +124,8 @@ public class TicketRepositoryImpl implements TicketRepository {
     @Override
     public void saveBookedTicket(User user, Ticket ticket) {
         if (user != null && user.getId() != null && ticket != null) {
-            if(ticket.getId()==null){
-                ticket = save(ticket);
-            }
+            ticket.setState(TicketState.BOOKED);
+            ticket = save(ticket);
             jdbcTemplate.update(INSERT_INTO_TICKETS, user.getId(), ticket.getId());
         }
     }
@@ -155,16 +156,16 @@ public class TicketRepositoryImpl implements TicketRepository {
             t.setId(rs.getLong(1));
             t.setPrice(rs.getFloat(2));
             t.setState(TicketState.valueOf(rs.getString(3)));
-            t.setSeat(new Seat(rs.getInt(4)));
+            t.setSeat(new Seat(rs.getInt(4), rs.getBoolean(5)));
 
             Event e = new Event(
-                    rs.getLong(6),
-                    rs.getString(7),
-                    rs.getTimestamp(8) != null ? rs.getTimestamp(8).toLocalDateTime() : null,
-                    rs.getFloat(9),
-                    Rating.getRating(rs.getInt(10))
+                    rs.getLong(7),
+                    rs.getString(8),
+                    rs.getTimestamp(9) != null ? rs.getTimestamp(9).toLocalDateTime() : null,
+                    rs.getFloat(10),
+                    Rating.getRating(rs.getInt(11))
             );
-            e.setAuditorium(new Auditorium(rs.getInt(11)));
+            e.setAuditorium(new Auditorium(rs.getInt(12)));
             t.setEvent(e);
 
             return t;

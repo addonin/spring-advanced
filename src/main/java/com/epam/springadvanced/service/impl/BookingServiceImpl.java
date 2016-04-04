@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -30,6 +31,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserAccountService userAccountService;
 
     @Autowired
     private TicketRepository ticketRepository;
@@ -53,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(EventNotAssignedException::new);
 
         Auditorium auditorium = event.getAuditorium();
-        Collection<Seat> auditoriumSeats = auditorium.getSeats();
+        Collection<Seat> auditoriumSeats = auditoriumRepository.getSeats(auditorium.getId());
         for (int number : seatNumbers) {
             Seat seat = auditoriumRepository.getSeatByAuditoriumIdAndNumber(auditorium.getId(), number);
             if (auditoriumSeats.contains(seat)) {
@@ -67,6 +71,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public void createTickets(Event event) {
         Auditorium auditorium = event.getAuditorium();
         Collection<Seat> seats = auditorium.getSeats();
@@ -85,7 +90,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void bookTicket(User user, Ticket ticket) throws UserNotRegisteredException, TicketAlreadyBookedException,
+    @Transactional
+    public void bookTicket(User user, Ticket ticket, float price) throws UserNotRegisteredException, TicketAlreadyBookedException,
             TicketWithoutEventException {
         //if users is null or not registered then throw exception
         Optional.ofNullable(user)
@@ -97,12 +103,18 @@ public class BookingServiceImpl implements BookingService {
                 .flatMap(t -> Optional.ofNullable(t.getEvent()))
                 .orElseThrow(TicketWithoutEventException::new);
 
+        long userId = user.getId();
+        float amount = userAccountService.getUserAccount(userId).getAmount();
+        boolean enoughMoney = amount >= price;
+
         //false if ticket already booked for specified event and seat
         boolean notBooked = ticketRepository.getBookedTickets(ticket.getEvent().getId()).stream()
                 .noneMatch(t -> t.getEvent().getName().equals(ticket.getEvent().getName()) &&
                         t.getSeat().getNumber() == ticket.getSeat().getNumber()
                 );
-        if (notBooked) {
+        if (enoughMoney && notBooked) {
+            ticket.setPrice(price);
+            userAccountService.changeAmount(userId, amount - price);
             ticketRepository.saveBookedTicket(user, ticket);
             log.info(String.format("User <%s> booked ticket with seat number %d for event <%s>",
                     user.getName(),
